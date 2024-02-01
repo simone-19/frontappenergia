@@ -1,6 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import MyNav from "./Components/MyNav";
 import { Container } from "react-bootstrap";
 import Login from "./Components/PageLogin/Login";
 import MyFooter from "./Components/MyFooter";
