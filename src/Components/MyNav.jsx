@@ -1,26 +1,26 @@
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Image } from "react-bootstrap";
 const MyNav = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">Azienda energetica</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Brand href="">Azienda energetica</Navbar.Brand>
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Clienti</Nav.Link>
-            <Nav.Link href="#link">Fatture</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
+          {" "}
+          <div className="flex-grow-1 "></div>
+          <Nav>
+            <Nav.Link href="/clienti">Clienti</Nav.Link>
+            <Nav.Link href="/fatture">Fatture</Nav.Link>
+            <Nav.Link href="/gestioneutenti">Gestione Utenti</Nav.Link>
+            <div className="flex-grow-1 "></div>
+            <Nav.Link href="/me">Jannik Sinner</Nav.Link>
+            <div>
+              <Image
+                src={"http://placekitten.com/45"}
+                roundedCircle
+                alt="user-profile"
+              ></Image>
+            </div>
           </Nav>
         </Navbar.Collapse>
       </Container>
