@@ -1,7 +1,5 @@
 import { Row, Col, Form } from "react-bootstrap";
 import MyButton from "./MyButton";
-import { useEffect, useState } from "react";
-import MyNav from "../MyNav";
 
 const Login = () => {
   const url = "http://localhost:3010/auth/login";
@@ -26,12 +24,8 @@ const Login = () => {
       alert(error);
     }
   };
-  // useEffect(() => {
-  //   getToken();
-  // }, []);
   return (
     <>
-      <MyNav></MyNav>
       <h1 className="mb-5 text-center">AZIENDA ENERGETICA</h1>
       <Row>
         <Col xs={8} md={6}>
