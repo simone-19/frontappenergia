@@ -1,6 +1,7 @@
 import { Row, Col, Form } from "react-bootstrap";
 import MyButton from "./MyButton";
 import { useEffect, useState } from "react";
+import MyNav from "../MyNav";
 
 const Login = () => {
   const url = "http://localhost:3010/auth/login";
@@ -16,7 +17,7 @@ const Login = () => {
       if (response.ok) {
         let data = await response.json();
         console.log(data.token);
-        const token = data;
+        const token = data.token;
         return token;
       } else {
         throw new Error("Errore nel caricamento dei dati");
@@ -30,6 +31,7 @@ const Login = () => {
   // }, []);
   return (
     <>
+      <MyNav></MyNav>
       <h1 className="mb-5 text-center">AZIENDA ENERGETICA</h1>
       <Row>
         <Col xs={8} md={6}>
