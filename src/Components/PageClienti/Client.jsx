@@ -40,7 +40,7 @@ const Client = () => {
   
     useEffect(() => {
     getClienti();
-  }, [data]);
+  }, []);
 
   return (
     <>
