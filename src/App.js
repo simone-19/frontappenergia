@@ -5,15 +5,15 @@ import Login from "./Components/PageLogin/Login";
 import MyFooter from "./Components/MyFooter";
 import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import Client from "./Components/PageClienti/Client";
-import { useState } from "react";
 import ClientDetails from "./Components/PageClienti/ClientDetails";
+import GestioneUtenti from "./Components/GestioneUtenti/GestioneUtente";
 
 function App() {
-  
   return (
     <BrowserRouter>
       <Container className="bg-primary-subtle pb-5">
         <Routes>
+          <Route path="/gestione" element={<GestioneUtenti />} />
           <Route path="/" element={<Login></Login>}></Route>
           <Route path="/clienti" element={<Client></Client>}></Route>
           <Route
@@ -21,7 +21,6 @@ function App() {
             element={<ClientDetails></ClientDetails>}
           ></Route>
         </Routes>
-        <MyFooter />
       </Container>
     </BrowserRouter>
   );
