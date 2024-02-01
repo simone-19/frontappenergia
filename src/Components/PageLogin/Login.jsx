@@ -3,7 +3,7 @@ import MyButton from "./MyButton";
 import { useEffect, useState } from "react";
 
 const Login = () => {
-  const url = "http://localhost:3001/auth/login";
+  const url = "http://localhost:3010/auth/login";
   const getToken = async () => {
     try {
       let response = await fetch(url, {
@@ -15,7 +15,7 @@ const Login = () => {
       });
       if (response.ok) {
         let data = await response.json();
-        console.log(data);
+        console.log(data.token);
         const token = data;
         return token;
       } else {
@@ -25,9 +25,9 @@ const Login = () => {
       alert(error);
     }
   };
-  useEffect(() => {
-    getToken();
-  }, []);
+  // useEffect(() => {
+  //   getToken();
+  // }, []);
   return (
     <>
       <h1 className="mb-5 text-center">AZIENDA ENERGETICA</h1>
