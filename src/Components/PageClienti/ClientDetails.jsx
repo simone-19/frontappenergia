@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import MyNav from "../MyNav";
 
 const ClientDetails = () => {
   let { clientiId } = useParams();
   console.log(clientiId);
-  const api = "http://localhost:3010/clienti/" + clientiId;
+  const api = "http://localhost:3001/clienti/" + clientiId;
   const [detail, setDetail] = useState([]);
   const getClientiDetail = () => {
     fetch(api, {
@@ -13,8 +14,7 @@ const ClientDetails = () => {
       headers: {
         "Content-type": "application/json",
         authorization:
-          "bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMzk1ODk0ZC1mMTIwLTRmNjktYTU4NS0xOWRhOWJjNjJlN2UiLCJpYXQiO" +
-          "jE3MDY3OTc1ODYsImV4cCI6MTcwNzQwMjM4Nn0.ZVkmHJKD6H0anRr1MgnG6DVVeW0GytKfFHrMbEeQJtU",
+          "bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MjhiNzYwMi0xY2NhLTQzNDYtOGUzOS03YmJlYzY5MzhkYmEiLCJpYXQiOjE3MDY4MTE3MTgsImV4cCI6MTcwNzQxNjUxOH0.6UuQXxc48-hatNbHqyi23IIMPAuneYtVS4bYWc6YHLQ",
       },
     })
       .then((data) => {
@@ -38,6 +38,7 @@ const ClientDetails = () => {
 
   return (
     <>
+      <MyNav></MyNav>
       <ListGroup>
         <ListGroupItem>
           <p>{detail.cognomeContatto}</p>

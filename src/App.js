@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import Client from "./Components/PageClienti/Client";
 import ClientDetails from "./Components/PageClienti/ClientDetails";
 import GestioneUtenti from "./Components/GestioneUtenti/GestioneUtente";
+import MyNav from "./Components/MyNav";
 
 function App() {
   return (
@@ -14,13 +15,14 @@ function App() {
       <Container className="bg-primary-subtle pb-5">
         <Routes>
           <Route path="/gestione" element={<GestioneUtenti />} />
-          <Route path="/" element={<Login></Login>}></Route>
+          <Route path="" element={<Login></Login>}></Route>
           <Route path="/clienti" element={<Client></Client>}></Route>
           <Route
             path="/clienti/details/:clientiId"
             element={<ClientDetails></ClientDetails>}
           ></Route>
         </Routes>
+        <MyFooter></MyFooter>
       </Container>
     </BrowserRouter>
   );

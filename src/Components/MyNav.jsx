@@ -1,5 +1,5 @@
-import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
-import { Row, Col, Image } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 const MyNav = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -11,7 +11,7 @@ const MyNav = () => {
           <Nav>
             <Nav.Link href="/clienti">Clienti</Nav.Link>
             <Nav.Link href="/fatture">Fatture</Nav.Link>
-            <Nav.Link href="/gestioneutenti">Gestione Utenti</Nav.Link>
+            <Nav.Link href="/gestione">Gestione Utenti</Nav.Link>
             <div className="flex-grow-1 "></div>
             <Nav.Link href="/me">Jannik Sinner</Nav.Link>
             <div>
