@@ -1,23 +1,19 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-
 import MyNav from "./Components/MyNav";
 import { Container } from "react-bootstrap";
-import Main from "./Components/Main";
-
+import Login from "./Components/PageLogin/Login";
 import MyFooter from "./Components/MyFooter";
-import MyButton from "./Components/MyButton";
-import { BrowserRouter, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Client from "./Components/PageClienti/Client";
 
 function App() {
   return (
     <BrowserRouter>
       <Container className="bg-primary-subtle pb-5">
-        <MyNav />
         <Routes>
-          <Main />
-
-          <MyButton />
+          <Route path="/" element={<Login></Login>}></Route>
+          <Route path="/clienti" element={<Client></Client>}></Route>
         </Routes>
         <MyFooter />
       </Container>

@@ -1,5 +1,5 @@
-import MyNav from "./MyNav";
-import MyFooter from "./MyFooter";
+import MyNav from "../MyNav";
+import MyFooter from "../MyFooter";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 const Client = () => {
