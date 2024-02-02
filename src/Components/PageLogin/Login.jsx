@@ -1,6 +1,7 @@
 import { Row, Col, Form } from "react-bootstrap";
 import MyButton from "./MyButton";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [loginPayload, setLoginPayload] = useState({
@@ -8,7 +9,20 @@ const Login = () => {
     password: "",
   });
 
-  const url = "http://localhost:3010/auth/login";
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    try {
+      const token = await getToken();
+      if (token) {
+        navigate("/clienti");
+      }
+    } catch (error) {
+      console.error("Errore durante il login:", error);
+    }
+  };
+
+  const url = "http://localhost:3001/auth/login";
 
   const getToken = async () => {
     try {
@@ -67,11 +81,7 @@ const Login = () => {
                 });
               }}
             />
-            <MyButton
-              onClick={() => {
-                getToken();
-              }}
-            ></MyButton>
+            <MyButton onClick={handleLogin}></MyButton>
           </Form>
         </Col>
       </Row>
