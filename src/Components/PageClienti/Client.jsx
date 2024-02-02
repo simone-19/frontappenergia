@@ -106,7 +106,7 @@ const Client = () => {
               })}}>
         <Form.Group className="mb-3">
           <Checkbox
-            {..."label"}
+         
             onChange={() => {
               if (label1 === true) {
                 setLabel1(false);
@@ -126,8 +126,9 @@ const Client = () => {
 
         <Form.Group className="mb-3">
           <Checkbox
-            {..."label"}
-            defaultUnChecked
+         
+            
+            
             onChange={() => {
               if (label2 === true) {
                 setLabel2(false);
@@ -147,7 +148,8 @@ const Client = () => {
 
         <Form.Group className="mb-3">
           <Checkbox
-            {..."label"}
+         
+            
             onChange={() => {
               if (label3 === true) {
                 setLabel3(false);
@@ -167,7 +169,8 @@ const Client = () => {
 
         <Form.Group className="mb-3">
           <Checkbox
-            {..."label"}
+         
+            
             onChange={() => {
               if (label4 === true) {
                 setLabel4(false);
@@ -189,6 +192,7 @@ const Client = () => {
 
         <Form.Group className="mb-3">
           {/* <Checkbox
+         
             {..."label5"}
         
             onChange={() => {
@@ -218,15 +222,6 @@ const Client = () => {
         </Form.Group>
         <Button type="submit">cerca</Button>
       </Form>
-      <InputGroup className="mb-3">
-        <InputGroup.Text id="inputGroup-sizing-default">
-          Cliente
-        </InputGroup.Text>
-        <Form.Control
-          aria-label="Default"
-          aria-describedby="inputGroup-sizing-default"
-        />
-      </InputGroup>
       <div>
         <ListGroup>
           {data !== undefined &&
