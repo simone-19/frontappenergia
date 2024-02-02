@@ -2,7 +2,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Container } from "react-bootstrap";
 import Login from "./Components/PageLogin/Login";
-import MyFooter from "./Components/MyFooter";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Client from "./Components/PageClienti/Client";
 import GestioneUtenti from "./Components/GestioneUtenti/GestioneUtente";
