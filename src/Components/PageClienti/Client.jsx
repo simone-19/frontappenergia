@@ -131,7 +131,7 @@ const Client = () => {
                   ...modifyObject,
                   nomeContatto: e.target.value,
                 });
-                getClienti();
+                // getClienti();
               }}
             />
           )}
@@ -249,6 +249,14 @@ const Client = () => {
         </Button>
       </Form>
       <div>
+        <ListGroup>
+          <div className="fs-6 d-flex justify-content-between">
+            <h3>immagine</h3>
+            <h3>nome cliente</h3>
+            <h3>email</h3>
+            <h3>fatturato annuo</h3>
+          </div>
+        </ListGroup>
         <ListGroup>
           {data !== undefined &&
             data.map((element) => {

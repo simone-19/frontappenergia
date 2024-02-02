@@ -7,9 +7,9 @@ import ModalModify from "./ModalModify";
 const ClientDetails = (props) => {
   const navigate = useNavigate();
 
-  const navigater=()=>{
-    navigate("/clienti")
-  }
+  const navigater = () => {
+    navigate("/clienti");
+  };
   const [showAdd, setShowAdd] = useState(false);
   let { clientiId } = useParams();
   console.log(clientiId);
@@ -54,6 +54,7 @@ const ClientDetails = (props) => {
         if (data.ok) {
           console.log("CANCELLATO");
           alert("OGGETTO ELIMINATO");
+          navigater();
           //   props.setShow(false)
         } else {
           throw new Error("Errore nel caricamento dei dati");
@@ -114,8 +115,6 @@ const ClientDetails = (props) => {
           variant="danger"
           onClick={() => {
             deleteData();
-           navigater()
-            
           }}
         >
           elimina

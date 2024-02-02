@@ -9,13 +9,18 @@ import { BsThreeDots } from "react-icons/bs";
 import { FaRegSmile } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ModalModify = (props) => {
-    let { clientiId } = useParams();
-    console.log(clientiId);
+  const navigate = useNavigate();
+
+  const navigater = () => {
+    navigate("/clienti");
+  };
+  let { clientiId } = useParams();
+  console.log(clientiId);
   const [detail, setDetail] = useState([]);
-console.log(props.image+"image")
+  console.log(props.image + "image");
   const [modifyObject, setModifyObject] = useState({
     ragioneSociale: "",
     partitaIva: "",
@@ -48,9 +53,9 @@ console.log(props.image+"image")
     })
       .then((data) => {
         if (data.ok) {
-            console.log("inviato")
-            alert("oggetto modificato")
-          //   props.setShow(false)
+          console.log("inviato");
+          alert("oggetto modificato");
+          navigater();
         } else {
           throw new Error("Errore nel caricamento dei dati");
         }
@@ -58,18 +63,16 @@ console.log(props.image+"image")
       .catch((error) => {
         console.log("error" + error);
       });
-      
   };
   const getClientiDetail = () => {
     fetch(api, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        authorization: "bearer "+token,
+        authorization: "bearer " + token,
       },
     })
       .then((data) => {
-    
         if (data.ok) {
           return data.json();
         } else {
@@ -85,12 +88,9 @@ console.log(props.image+"image")
       });
   };
 
-
-
-
-  useEffect(()=>{
-    getClientiDetail()
-  },[])
+  useEffect(() => {
+    getClientiDetail();
+  }, []);
   return (
     <>
       {props.show && (
@@ -295,8 +295,7 @@ console.log(props.image+"image")
                   setModifyObject({
                     ...modifyObject,
                     indirizzoCap: e.target.value,
-                    logoAziendale: detail.logoAziendale
-
+                    logoAziendale: detail.logoAziendale,
                   });
                 }}
               />
