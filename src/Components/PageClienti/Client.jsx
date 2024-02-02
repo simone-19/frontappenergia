@@ -25,60 +25,64 @@ const Client = () => {
     fatturatoMinimo: "",
     fatturatoMassimo: "",
   });
+
   let nome = "";
   if (label1 === true) {
     nome = "nomeContatto=";
-  }else{
-    nome=""
+  } else {
+    nome = "";
   }
   let dataultimo = "";
   if (label2 === true) {
     dataultimo = "&dataUltimoContatto=";
-  }else{
-    dataultimo=""
+  } else {
+    dataultimo = "";
   }
   let datainserimento = "";
   if (label3 === true) {
     datainserimento = "&dataInserimento=";
-  }else{
-    datainserimento=""
+  } else {
+    datainserimento = "";
   }
   let fatturatoMax = "";
   let fatturatomin = "";
   if (label4 === true) {
     fatturatomin = "&minimo=";
     fatturatoMax = "&massimo=";
-  }else{
-    fatturatoMax=""
-    fatturatomin=""
+  } else {
+    fatturatoMax = "";
+    fatturatomin = "";
   }
-  let api3= api +
-  nome + modifyObject.nomeContatto +
-  dataultimo+modifyObject.dataUltimoContatto +
-  datainserimento+modifyObject.dataInserimento +
-  fatturatomin+modifyObject.fatturatoMinimo +
-  fatturatoMax+modifyObject.fatturatoMassimo;
-  console.log(api3)
+  let api3 =
+    api +
+    nome +
+    modifyObject.nomeContatto +
+    dataultimo +
+    modifyObject.dataUltimoContatto +
+    datainserimento +
+    modifyObject.dataInserimento +
+    fatturatomin +
+    modifyObject.fatturatoMinimo +
+    fatturatoMax +
+    modifyObject.fatturatoMassimo;
+  console.log(api3);
 
   const [data, setData] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const getClienti = async () => {
     try {
-      let response = await fetch(api3,
-        {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json",
-            authorization: "bearer " + token,
-          },
-        }
-      );
+      let response = await fetch(api3, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          authorization: "bearer " + token,
+        },
+      });
       if (response.ok) {
         let data = await response.json();
         console.log(data.content);
 
         setData(data.content);
-   
       } else {
         throw new Error("Errore nel caricamento dei dati");
       }
@@ -94,19 +98,21 @@ const Client = () => {
   return (
     <>
       <MyNav></MyNav>
-      <Form  onSubmit={(e) => {
-              e.preventDefault();
-              getClienti()
-              setModifyObject({
-                nomeContatto: "",
-                dataUltimoContatto: "",
-                dataInserimento: "",
-                fatturatoMinimo: "",
-                fatturatoMassimo: "",
-              })}}>
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault();
+          getClienti();
+          setModifyObject({
+            nomeContatto: "",
+            dataUltimoContatto: "",
+            dataInserimento: "",
+            fatturatoMinimo: "",
+            fatturatoMassimo: "",
+          });
+        }}
+      >
         <Form.Group className="mb-3">
           <Checkbox
-         
             onChange={() => {
               if (label1 === true) {
                 setLabel1(false);
@@ -116,19 +122,23 @@ const Client = () => {
             }}
           />
           <Form.Label>Nome contatto</Form.Label>
-          {label1 === true && <Form.Control type="text" value={modifyObject.nomeContatto} onChange={(e)=>{
-              setModifyObject({
-                ...modifyObject,
-                  nomeContatto:e.target.value
-              })
-          }} />}
+          {label1 === true && (
+            <Form.Control
+              type="text"
+              value={modifyObject.nomeContatto}
+              onChange={(e) => {
+                setModifyObject({
+                  ...modifyObject,
+                  nomeContatto: e.target.value,
+                });
+                getClienti();
+              }}
+            />
+          )}
         </Form.Group>
 
         <Form.Group className="mb-3">
           <Checkbox
-         
-            
-            
             onChange={() => {
               if (label2 === true) {
                 setLabel2(false);
@@ -138,18 +148,22 @@ const Client = () => {
             }}
           />
           <Form.Label>data ultimo contatto</Form.Label>
-          {label2 === true && <Form.Control type="date" value={modifyObject.dataUltimoContatto} onChange={(e)=>{
-              setModifyObject({
-                ...modifyObject,
-                  dataUltimoContatto:e.target.value
-              })
-          }}  />}
+          {label2 === true && (
+            <Form.Control
+              type="date"
+              value={modifyObject.dataUltimoContatto}
+              onChange={(e) => {
+                setModifyObject({
+                  ...modifyObject,
+                  dataUltimoContatto: e.target.value,
+                });
+              }}
+            />
+          )}
         </Form.Group>
 
         <Form.Group className="mb-3">
           <Checkbox
-         
-            
             onChange={() => {
               if (label3 === true) {
                 setLabel3(false);
@@ -159,18 +173,22 @@ const Client = () => {
             }}
           />
           <Form.Label>data inserimento</Form.Label>
-          {label3 === true && <Form.Control type="date" value={modifyObject.dataInserimento} onChange={(e)=>{
-              setModifyObject({
-                ...modifyObject,
-                  dataInserimento:e.target.value
-              })
-          }}  />}
+          {label3 === true && (
+            <Form.Control
+              type="date"
+              value={modifyObject.dataInserimento}
+              onChange={(e) => {
+                setModifyObject({
+                  ...modifyObject,
+                  dataInserimento: e.target.value,
+                });
+              }}
+            />
+          )}
         </Form.Group>
 
         <Form.Group className="mb-3">
           <Checkbox
-         
-            
             onChange={() => {
               if (label4 === true) {
                 setLabel4(false);
@@ -182,12 +200,18 @@ const Client = () => {
             }}
           />
           <Form.Label>fatturato minimo</Form.Label>
-          {label4 === true && label5 === true && <Form.Control type="number"  value={modifyObject.fatturatoMinimo}onChange={(e)=>{
-              setModifyObject({
-                ...modifyObject,
-                  fatturatoMinimo:e.target.value
-              })
-          }}  />}
+          {label4 === true && label5 === true && (
+            <Form.Control
+              type="number"
+              value={modifyObject.fatturatoMinimo}
+              onChange={(e) => {
+                setModifyObject({
+                  ...modifyObject,
+                  fatturatoMinimo: e.target.value,
+                });
+              }}
+            />
+          )}
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -209,7 +233,7 @@ const Client = () => {
           <Form.Label className="ms">fatturato massimo</Form.Label>
           {label4 && (
             <Form.Control
-              type="number" 
+              type="number"
               value={modifyObject.fatturatoMassimo}
               onChange={(e) => {
                 setModifyObject({
@@ -220,7 +244,9 @@ const Client = () => {
             />
           )}
         </Form.Group>
-        <Button type="submit">cerca</Button>
+        <Button className="mb-4" type="submit">
+          cerca
+        </Button>
       </Form>
       <div>
         <ListGroup>
