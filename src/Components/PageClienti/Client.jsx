@@ -1,9 +1,11 @@
+import MyNav from "../MyNav";
+
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { Button, ListGroup } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import ClientSection from "./CientSection";
-import MyNav from "../MyNav";
+
 import * as React from "react";
 import Checkbox from "@mui/material/Checkbox";
 
@@ -130,7 +132,7 @@ const Client = () => {
                   ...modifyObject,
                   nomeContatto: e.target.value,
                 });
-                getClienti();
+                // getClienti();
               }}
             />
           )}
@@ -248,6 +250,14 @@ const Client = () => {
         </Button>
       </Form>
       <div>
+        <ListGroup>
+          <div className="fs-6 d-flex justify-content-between">
+            <h3>immagine</h3>
+            <h3>nome cliente</h3>
+            <h3>email</h3>
+            <h3>fatturato annuo</h3>
+          </div>
+        </ListGroup>
         <ListGroup>
           {data !== undefined &&
             data.map((element) => {

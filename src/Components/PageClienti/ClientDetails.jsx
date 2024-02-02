@@ -52,6 +52,7 @@ const ClientDetails = (props) => {
         if (data.ok) {
           console.log("CANCELLATO");
           alert("OGGETTO ELIMINATO");
+          navigater();
           //   props.setShow(false)
         } else {
           throw new Error("Errore nel caricamento dei dati");
