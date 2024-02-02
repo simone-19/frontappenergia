@@ -9,13 +9,17 @@ import { BsThreeDots } from "react-icons/bs";
 import { FaRegSmile } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ModalModify = (props) => {
-    let { clientiId } = useParams();
-    console.log(clientiId);
+  const navigate = useNavigate();
+  const navigater = () => {
+    navigate("/clienti");
+  };
+  let { clientiId } = useParams();
+  console.log(clientiId);
   const [detail, setDetail] = useState([]);
-console.log(props.image+"image")
+  console.log(props.image + "image");
   const [modifyObject, setModifyObject] = useState({
     ragioneSociale: "",
     partitaIva: "",
@@ -48,9 +52,11 @@ console.log(props.image+"image")
     })
       .then((data) => {
         if (data.ok) {
-            console.log("inviato")
-            alert("oggetto modificato")
+          console.log("inviato");
+          alert("oggetto modificato");
           //   props.setShow(false)
+          props.setRefreshFunc();
+          navigater();
         } else {
           throw new Error("Errore nel caricamento dei dati");
         }
@@ -58,39 +64,34 @@ console.log(props.image+"image")
       .catch((error) => {
         console.log("error" + error);
       });
-      
   };
-  const getClientiDetail = () => {
-    fetch(api, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        authorization: "bearer "+token,
-      },
-    })
-      .then((data) => {
-    
-        if (data.ok) {
-          return data.json();
-        } else {
-          throw new Error("Errore nel caricamento dei dati");
-        }
-      })
-      .then((data) => {
-        console.log(`dati belli recuperati`, data);
-        setDetail(data);
-      })
-      .catch((error) => {
-        console.log("error" + error);
-      });
-  };
+  // const getClientiDetail = () => {
+  //   fetch(api, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-type": "application/json",
+  //       authorization: "bearer " + token,
+  //     },
+  //   })
+  //     .then((data) => {
+  //       if (data.ok) {
+  //         return data.json();
+  //       } else {
+  //         throw new Error("Errore nel caricamento dei dati");
+  //       }
+  //     })
+  //     .then((data) => {
+  //       console.log(`dati belli recuperati`, data);
+  //       setDetail(data);
+  //     })
+  //     .catch((error) => {
+  //       console.log("error" + error);
+  //     });
+  // };
 
-
-
-
-  useEffect(()=>{
-    getClientiDetail()
-  },[])
+  // useEffect(() => {
+  //   getClientiDetail();
+  // }, []);
   return (
     <>
       {props.show && (
@@ -247,42 +248,9 @@ console.log(props.image+"image")
                   setModifyObject({
                     ...modifyObject,
                     telefonoContatto: e.target.value,
-                  });
-                }}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>via</Form.Label>
-              <Form.Control
-                type="text"
-                onChange={(e) => {
-                  setModifyObject({
-                    ...modifyObject,
-                    indirizzoAdress: e.target.value,
-                  });
-                }}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>numero civico</Form.Label>
-              <Form.Control
-                type="text"
-                onChange={(e) => {
-                  setModifyObject({
-                    ...modifyObject,
-                    indirizzoCivico: e.target.value,
-                  });
-                }}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>paese</Form.Label>
-              <Form.Control
-                type="text"
-                onChange={(e) => {
-                  setModifyObject({
-                    ...modifyObject,
-                    indirizzoLocalita: e.target.value,
+                    indirizzo1Adress:" Via flaviaza",
+                    indirizzo1Civico: 255,
+                    indirizzo1Localita:"Rogno",
                   });
                 }}
               />
@@ -294,9 +262,19 @@ console.log(props.image+"image")
                 onChange={(e) => {
                   setModifyObject({
                     ...modifyObject,
-                    indirizzoCap: e.target.value,
-                    logoAziendale: detail.logoAziendale
-
+                    indirizzo1Cap: e.target.value,
+                  });
+                }}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Logo Aziendale</Form.Label>
+              <Form.Control
+                type="text"
+                onChange={(e) => {
+                  setModifyObject({
+                    ...modifyObject,
+                    logoAziendale: e.target.value,
                   });
                 }}
               />

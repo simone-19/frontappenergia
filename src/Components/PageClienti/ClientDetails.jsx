@@ -5,11 +5,14 @@ import MyNav from "../MyNav";
 import ModalModify from "./ModalModify";
 
 const ClientDetails = (props) => {
+  const [refresh, setRefresh] = useState(1);
+  const setRefreshFunc = () => {
+    setRefresh(refresh + 1);
+  };
   const navigate = useNavigate();
-
-  const navigater=()=>{
-    navigate("/clienti")
-  }
+  const navigater = () => {
+    navigate("/clienti");
+  };
   const [showAdd, setShowAdd] = useState(false);
   let { clientiId } = useParams();
   console.log(clientiId);
@@ -55,6 +58,7 @@ const ClientDetails = (props) => {
           console.log("CANCELLATO");
           alert("OGGETTO ELIMINATO");
           //   props.setShow(false)
+          setRefreshFunc();
         } else {
           throw new Error("Errore nel caricamento dei dati");
         }
@@ -66,7 +70,7 @@ const ClientDetails = (props) => {
 
   useEffect(() => {
     getClientiDetail();
-  }, []);
+  }, [refresh]);
 
   return (
     <>
@@ -114,14 +118,14 @@ const ClientDetails = (props) => {
           variant="danger"
           onClick={() => {
             deleteData();
-           navigater()
-            
+            navigater();
           }}
         >
           elimina
         </Button>{" "}
       </div>
       <ModalModify
+        setRefreshFunc={setRefreshFunc}
         setShow={setShowAdd}
         show={showAdd}
         id={detail.id}

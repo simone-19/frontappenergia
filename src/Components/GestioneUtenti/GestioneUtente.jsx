@@ -5,7 +5,7 @@ import MyNav from "../MyNav";
 const GestioneUtenti = () => {
   const [data, setData] = useState([]);
   const bearerToken =
-    "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MjhiNzYwMi0xY2NhLTQzNDYtOGUzOS03YmJlYzY5MzhkYmEiLCJpYXQiOjE3MDY4MTE3MTgsImV4cCI6MTcwNzQxNjUxOH0.6UuQXxc48-hatNbHqyi23IIMPAuneYtVS4bYWc6YHLQ";
+    "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMzk1ODk0ZC1mMTIwLTRmNjktYTU4NS0xOWRhOWJjNjJlN2UiLCJpYXQiOjE3MDY4NjUwNTMsImV4cCI6MTcwNzQ2OTg1M30.fLushJc_HEcDQaoJe2PzX-ljIPY6FbcuQk9doHvEC9M";
   const [operationType, setOperationType] = useState("create");
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
