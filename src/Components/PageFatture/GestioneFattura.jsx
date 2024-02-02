@@ -22,9 +22,9 @@ const GestioneFattura = () => {
   };
 
   const getAllClients = () => {
-    fetch("http://localhost:3009/clients", {
+    fetch("http://localhost:3001/clienti", {
       headers: {
-        Authorization: localStorage.getItem("tokenAdmin"),
+        Authorization: localStorage.getItem("jwtToken"),
       },
     })
       .then((res) => {
@@ -43,11 +43,11 @@ const GestioneFattura = () => {
   };
 
   const saveFattura = () => {
-    fetch("http://localhost:3009/invoice", {
+    fetch("http://localhost:3001/fatture", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: localStorage.getItem("tokenAdmin"),
+        Authorization: localStorage.getItem("jwtToken"),
       },
       body: JSON.stringify(payload),
     })

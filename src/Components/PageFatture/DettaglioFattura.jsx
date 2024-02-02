@@ -1,29 +1,42 @@
 import { useEffect, useState } from "react";
 import { Button, Container, Form, Alert } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import MyNav from "../MyNav";
 
 const DettaglioFattura = () => {
-  const urlParams = useParams();
+  let { id } = useParams();
+  console.log(id + "url");
+  const navigate = useNavigate();
 
-  const [dettaglio, setDettaglio] = useState(null);
+  const navigater = () => {
+    navigate("/fatture");
+  };
+
+  const [dettaglio, setDettaglio] = useState({});
+  const [detailObject, setDetailObject] = useState({
+    data: "",
+    importo: "",
+    statoFattura: "",
+    clienteId: "",
+  });
 
   const [show, setShow] = useState(false);
 
-  const [date, setDate] = useState(dettaglio ? dettaglio.date : "");
-  const [importo, setImport] = useState(dettaglio ? dettaglio.imports : 0);
-  const [stato, setStato] = useState(dettaglio ? dettaglio.statoFattura : "");
+  // const [date, setDate] = useState(dettaglio ? dettaglio.date : "");
+  // const [importo, setImport] = useState(dettaglio ? dettaglio.imports : 0);
+  // const [stato, setStato] = useState(dettaglio ? dettaglio.statoFattura : "");
 
-  const payload = {
-    date: date,
-    imports: importo,
-    statoFattura: stato,
-  };
-
+  // const payload = {
+  //   date: date,
+  //   imports: importo,
+  //   statoFattura: stato,
+  // };
+  const token = localStorage.getItem("jwtToken");
+  console.log(token);
   const getInvoiceDetails = () => {
-    fetch("http://localhost:3009/invoice/" + urlParams.idFattura, {
+    fetch("http://localhost:3001/fatture/" + id, {
       headers: {
-        Authorization: localStorage.getItem("tokenAdmin"),
+        Authorization: "bearer " + token,
       },
     })
       .then((res) => {
@@ -43,20 +56,22 @@ const DettaglioFattura = () => {
   };
 
   const modifyInvoice = () => {
-    fetch("http://localhost:3009/invoice/" + urlParams.idFattura, {
+    fetch("http://localhost:3001/fatture/" + id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: localStorage.getItem("tokenAdmin"),
+        Authorization: "bearer " + token,
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(detailObject),
     })
       .then((res) => {
         if (res.ok) {
           console.log("dati modificati!" + res);
-          setShow(true);
+          // setShow(true);
+          alert("oggetto modificato! complimenti!");
+          navigater();
         } else {
-          throw new Error("errore nel salvataggio dei dati");
+          throw new Error(+"errore nel salvataggio dei dati");
         }
       })
       .catch((err) => {
@@ -66,27 +81,31 @@ const DettaglioFattura = () => {
 
   useEffect(() => {
     getInvoiceDetails();
-  }, [urlParams]);
+  }, []);
 
   return (
     <Container fluid>
       <MyNav></MyNav>
       {dettaglio !== null && (
         <>
-          <p className="my-3">ID Fattura: {dettaglio.number}</p>
+          <p className="my-3">ID Fattura: {dettaglio.numero_fattura}</p>
           <Form
             onSubmit={(e) => {
               e.preventDefault();
               modifyInvoice();
+              console.log(detailObject + "questo!");
             }}
           >
             <Form.Group className="mb-3">
               <Form.Label>Data emissione</Form.Label>
               <Form.Control
                 type="date"
-                value={date}
+                // value={dettaglio.data}
                 onChange={(e) => {
-                  setDate(e.target.value);
+                  setDetailObject({
+                    ...detailObject,
+                    data: e.target.value,
+                  });
                 }}
               />
             </Form.Group>
@@ -94,9 +113,12 @@ const DettaglioFattura = () => {
               <Form.Label>Importo</Form.Label>
               <Form.Control
                 type="number"
-                value={importo}
+                // value={dettaglio.importo}
                 onChange={(e) => {
-                  setImport(e.target.value);
+                  setDetailObject({
+                    ...detailObject,
+                    importo: e.target.value,
+                  });
                 }}
               />
             </Form.Group>
@@ -104,15 +126,18 @@ const DettaglioFattura = () => {
               <Form.Label>Stato fattura</Form.Label>
               <Form.Select
                 aria-label="Default select example"
-                value={stato}
                 onChange={(e) => {
-                  setStato(e.target.value);
+                  setDetailObject({
+                    ...detailObject,
+                    statoFattura: e.target.value,
+                    clienteId: dettaglio.cliente.id,
+                  });
                 }}
               >
                 <option>Seleziona uno stato</option>
-                <option value="Emessa">Emessa</option>
-                <option value="Pagata">Pagata</option>
-                <option value="Da pagare">Da Pagare</option>
+                <option value="EMESSA">Emessa</option>
+                <option value="PAGATA">Pagata</option>
+                <option value="DA_PAGARE">Da Pagare</option>
               </Form.Select>
             </Form.Group>
             {show ? (

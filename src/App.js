@@ -23,10 +23,7 @@ function App() {
               path="/clienti/details/:clientiId"
               element={<ClientDetails />}
             ></Route>
-            <Route
-              path="/dettaglio_fattura/:idFattura"
-              element={<DettaglioFattura />}
-            />
+            <Route path="/dettaglio_fattura/:id" element={<DettaglioFattura />} />
             <Route path="/fatture" element={<GestioneFattura />}></Route>
           </Routes>
           <MyFooter />

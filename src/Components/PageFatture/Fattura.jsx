@@ -11,45 +11,47 @@ const Fattura = ({ clientsList }) => {
   const [stato, setStato] = useState("");
   const [importo, setImporto] = useState({ min: 0, max: 0 });
 
-  const [fatture, setFatture] = useState(null);
+  const [fatture, setFatture] = useState([]);
 
   const navigate = useNavigate();
-
+  const token = localStorage.getItem("jwtToken");
+  console.log(token);
   const checkChange = () => {
-    let url = "";
+    let url = "http://localhost:3001/fatture";
 
-    switch (selectedOption) {
-      case "clientId":
-        if (clientId !== "") {
-          url = "http://localhost:3009/invoice/filter?clientId=" + clientId;
-        }
-        break;
-      case "anno":
-        if (anno !== 0) {
-          url = "http://localhost:3009/invoice/filter/date?data=" + anno;
-        }
-        break;
-      case "stato":
-        if (stato !== "") {
-          url = "http://localhost:3009/invoice/filter/state?state=" + stato;
-        }
-        break;
-      case "importo":
-        if (importo.min !== 0 && importo.max !== 0) {
-          url =
-            "http://localhost:3009/invoice/filter/imports?min=" +
-            importo.min +
-            "&max=" +
-            importo.max;
-        }
-        break;
-      default:
-        break;
-    }
+    // switch (selectedOption) {
+    //   case "clientId":
+    //     if (clientId !== "") {
+    //       url = "http://localhost:3001/fatture/filter?clientId=" + clientId;
+    //     }
+    //     break;
+    //   case "anno":
+    //     if (anno !== 0) {
+    //       url = "http://localhost:3001/fatture/filter/date?data=" + anno;
+    //     }
+    //     break;
+    //   case "stato":
+    //     if (stato !== "") {
+    //       url = "http://localhost:3001/fatture/filter/state?state=" + stato;
+    //     }
+    //     break;
+    //   case "importo":
+    //     if (importo.min !== 0 && importo.max !== 0) {
+    //       url =
+    //         "http://localhost:3001/fatture/filter/imports?min=" +
+    //         importo.min +
+    //         "&max=" +
+    //         importo.max;
+    //     }
+    //     break;
+    //   default:
+    //     url = "http://localhost:3001/fatture";
+    //     break;
+    // }
 
     fetch(url, {
       headers: {
-        Authorization: localStorage.getItem("tokenAdmin"),
+        Authorization: "bearer " + token,
       },
     })
       .then((res) => {
@@ -61,45 +63,45 @@ const Fattura = ({ clientsList }) => {
       })
       .then((data) => {
         console.log(data);
-        setFatture(data);
+        setFatture(data.content);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const handleCheckboxChange = (option) => {
-    setSelectedOption(option);
-    // Resetting other fields when a checkbox is selected
-    switch (option) {
-      case "clientId":
-        setAnno(0);
-        setStato("");
-        setImporto({ min: 0, max: 0 });
-        break;
-      case "anno":
-        setClientId("");
-        setStato("");
-        setImporto({ min: 0, max: 0 });
-        break;
-      case "stato":
-        setClientId("");
-        setAnno(0);
-        setImporto({ min: 0, max: 0 });
-        break;
-      case "importo":
-        setClientId("");
-        setAnno(0);
-        setStato("");
-        break;
-      default:
-        break;
-    }
-  };
+  // const handleCheckboxChange = (option) => {
+  //   setSelectedOption(option);
+  //   // Resetting other fields when a checkbox is selected
+  //   switch (option) {
+  //     case "clientId":
+  //       setAnno(0);
+  //       setStato("");
+  //       setImporto({ min: 0, max: 0 });
+  //       break;
+  //     case "anno":
+  //       setClientId("");
+  //       setStato("");
+  //       setImporto({ min: 0, max: 0 });
+  //       break;
+  //     case "stato":
+  //       setClientId("");
+  //       setAnno(0);
+  //       setImporto({ min: 0, max: 0 });
+  //       break;
+  //     case "importo":
+  //       setClientId("");
+  //       setAnno(0);
+  //       setStato("");
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
 
   useEffect(() => {
     checkChange();
-  }, [selectedOption, clientId, anno, stato, importo]);
+  }, [selectedOption, anno, stato, importo]);
 
   return (
     <>
@@ -119,18 +121,18 @@ const Fattura = ({ clientsList }) => {
                   <Form.Check
                     type="checkbox"
                     label="Per id cliente"
-                    onChange={() => handleCheckboxChange("clientId")}
-                    checked={selectedOption === "clientId"}
+                    // onChange={() => handleCheckboxChange("clientId")}
+                    // checked={selectedOption === "clientId"}
                     style={{ width: "80%" }}
                   />
-                  {selectedOption === "clientId" && (
+                  {/* {selectedOption === "clientId" && (
                     <Form.Select
                       aria-label="Default select example"
                       onChange={(e) => {
                         setClientId(e.target.value);
                       }}
-                    >
-                      <option>Open this select menu</option>
+                    > */}
+                  {/* <option>Open this select menu</option>
                       {clientsList.map((client, i) => {
                         return (
                           <option key={i} value={client.clientId}>
@@ -138,15 +140,15 @@ const Fattura = ({ clientsList }) => {
                           </option>
                         );
                       })}
-                    </Form.Select>
-                  )}
+                    </Form.Select> */}
+                  {/* )} */}
                 </div>
                 <div className="d-flex align-items-center ">
                   <Form.Check
                     type="checkbox"
                     label="Per anno di emissione"
-                    onChange={() => handleCheckboxChange("anno")}
-                    checked={selectedOption === "anno"}
+                    // onChange={() => handleCheckboxChange("anno")}
+                    // checked={selectedOption === "anno"}
                     style={{ width: "80%" }}
                   />
                   {selectedOption === "anno" && (
@@ -163,8 +165,8 @@ const Fattura = ({ clientsList }) => {
                   <Form.Check
                     type="checkbox"
                     label="Per stato fattura"
-                    onChange={() => handleCheckboxChange("stato")}
-                    checked={selectedOption === "stato"}
+                    // onChange={() => handleCheckboxChange("stato")}
+                    // checked={selectedOption === "stato"}
                     style={{ width: "80%" }}
                   />
                   {selectedOption === "stato" && (
@@ -184,8 +186,8 @@ const Fattura = ({ clientsList }) => {
                   <Form.Check
                     type="checkbox"
                     label="Per fatturato (min e max)"
-                    onChange={() => handleCheckboxChange("importo")}
-                    checked={selectedOption === "importo"}
+                    // onChange={() => handleCheckboxChange("importo")}
+                    // checked={selectedOption === "importo"}
                     style={{ width: "50%" }}
                   />
                   {selectedOption === "importo" && (
@@ -224,18 +226,20 @@ const Fattura = ({ clientsList }) => {
                   <Col key={i}>
                     <Card>
                       <Card.Body>
-                        <Card.Text>N. Fattura: {fattura.number}</Card.Text>
+                        <Card.Text>
+                          N. Fattura: {fattura.numero_fattura}
+                        </Card.Text>
                       </Card.Body>
                       <ListGroup className="list-group-flush">
                         <ListGroup.Item>
-                          Data emissione: {fattura.date}
+                          Data emissione: {fattura.data}
                         </ListGroup.Item>
                         <ListGroup.Item>
-                          Importo: {fattura.imports} €
+                          Importo: {fattura.importo} €
                         </ListGroup.Item>
-                        <ListGroup.Item>
+                        {/* <ListGroup.Item>
                           id cliente: {fattura.client.clientId}
-                        </ListGroup.Item>
+                        </ListGroup.Item> */}
                         <ListGroup.Item>
                           Stato fattura: {fattura.statoFattura}
                         </ListGroup.Item>
@@ -245,7 +249,9 @@ const Fattura = ({ clientsList }) => {
                       className="mb-5 mt-2"
                       style={{ width: "20%" }}
                       onClick={() => {
-                        navigate("/dettaglio_fattura/" + fattura.number);
+                        navigate(
+                          "/dettaglio_fattura/" + fattura.numero_fattura
+                        );
                       }}
                     >
                       Modifica
