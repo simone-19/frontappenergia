@@ -8,9 +8,8 @@ import * as React from "react";
 import Checkbox from "@mui/material/Checkbox";
 
 let api = "http://localhost:3001/clienti?";
-const token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMzk1ODk0ZC1mMTIwLTRmNjktYTU4NS0x" +
-  "OWRhOWJjNjJlN2UiLCJpYXQiOjE3MDY4MjU4MzIsImV4cCI6MTcwNzQzMDYzMn0.zRXOHpDMNUM6yCYxyI473TgvS_k0nhLUCsG9NtkZ71M";
+const token = localStorage.getItem("jwtToken");
+
 const Client = () => {
   const [label1, setLabel1] = useState(false);
   const [label2, setLabel2] = useState(false);
