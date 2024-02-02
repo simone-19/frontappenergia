@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Container, Form, Alert } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import NavbarCustom from "./NavbarCustom";
+import MyNav from "../MyNav";
 
 const DettaglioFattura = () => {
   const urlParams = useParams();
@@ -70,7 +70,7 @@ const DettaglioFattura = () => {
 
   return (
     <Container fluid>
-      <NavbarCustom></NavbarCustom>
+      <MyNav></MyNav>
       {dettaglio !== null && (
         <>
           <p className="my-3">ID Fattura: {dettaglio.number}</p>

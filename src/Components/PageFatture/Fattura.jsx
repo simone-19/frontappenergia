@@ -1,4 +1,4 @@
-import { Mynav, MyFooter } from "react-bootstrap";
+// import { Mynav, MyFooter } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row, Card, ListGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -103,7 +103,7 @@ const Fattura = ({ clientsList }) => {
 
   return (
     <>
-      <Mynav></Mynav>
+      {/* <Mynav></Mynav> */}
       <Col>
         <h3> Visualizza tutte le fatture presenti</h3>
         <Row>
@@ -216,7 +216,7 @@ const Fattura = ({ clientsList }) => {
               </Form>
             </Col>
           )}
-          {fattura && (
+          {Fattura && (
             <Col className="mt-5 col-md-8">
               <h3>Fatture selezionate:</h3>
               {fatture.map((fattura, i) => {
@@ -257,7 +257,7 @@ const Fattura = ({ clientsList }) => {
           )}
         </Row>
       </Col>
-      <MyFooter></MyFooter>
+      {/* <MyFooter></MyFooter> */}
     </>
   );
 };

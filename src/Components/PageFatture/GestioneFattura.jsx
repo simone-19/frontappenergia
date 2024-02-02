@@ -1,7 +1,9 @@
 import { Col, Container, Alert, Row, Form, Button } from "react-bootstrap";
-import NavbarCustom from "./NavbarCustom";
+import NMyNav from "../MyNav";
 import { useEffect, useState } from "react";
-import ListaFatture from "./ListaFatture";
+import Fattura from "./Fattura";
+import MyNav from "../MyNav";
+
 
 const GestioneFattura = () => {
   const [clients, setClients] = useState(null);
@@ -67,7 +69,7 @@ const GestioneFattura = () => {
 
   return (
     <Container fluid>
-      <NavbarCustom />
+      <MyNav />
       <Row className="flex-column">
         <Col>
           {clients && (
@@ -141,7 +143,7 @@ const GestioneFattura = () => {
             </Form>
           )}
         </Col>
-        <ListaFatture clientsList={clients} />
+        <Fattura clientsList={clients} />
       </Row>
     </Container>
   );
