@@ -1,22 +1,31 @@
 import { Row, Col, Form } from "react-bootstrap";
 import MyButton from "./MyButton";
+import { useEffect, useState } from "react";
 
 const Login = () => {
+  const [loginPayload, setLoginPayload] = useState({
+    email: "",
+    password: "",
+  });
+
   const url = "http://localhost:3010/auth/login";
+
   const getToken = async () => {
     try {
       let response = await fetch(url, {
         method: "POST",
-        body: JSON.stringify({ email: "admin1@gmail.com", password: "admin1" }),
+        body: JSON.stringify(loginPayload),
         headers: {
           "Content-type": "application/json",
         },
       });
+
       if (response.ok) {
         let data = await response.json();
-        console.log(data.token);
-        const token = data.token;
-        return token;
+        console.log("token recuperato dal server " + data.token);
+        localStorage.setItem("jwtToken", data.token);
+        console.log(localStorage.getItem("jwtToken"));
+        return data.token;
       } else {
         throw new Error("Errore nel caricamento dei dati");
       }
@@ -24,6 +33,7 @@ const Login = () => {
       alert(error);
     }
   };
+
   return (
     <>
       <h1 className="mb-5 text-center">AZIENDA ENERGETICA</h1>
@@ -32,19 +42,41 @@ const Login = () => {
           <Form>
             <Form.Group className="mb-5" controlId="exampleForm.ControlInput1">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="name@example.com" />
+              <Form.Control
+                type="email"
+                placeholder="name@example.com"
+                value={loginPayload.email}
+                onChange={(e) => {
+                  setLoginPayload({
+                    ...loginPayload,
+                    email: e.target.value,
+                  });
+                }}
+              />
             </Form.Group>
             <Form.Label htmlFor="inputPassword5">Password</Form.Label>
             <Form.Control
               type="password"
               id="inputPassword5"
               aria-describedby="passwordHelpBlock"
-            />{" "}
-            <MyButton></MyButton>
+              value={loginPayload.password}
+              onChange={(e) => {
+                setLoginPayload({
+                  ...loginPayload,
+                  password: e.target.value,
+                });
+              }}
+            />
+            <MyButton
+              onClick={() => {
+                getToken();
+              }}
+            ></MyButton>
           </Form>
         </Col>
       </Row>
     </>
   );
 };
+
 export default Login;
