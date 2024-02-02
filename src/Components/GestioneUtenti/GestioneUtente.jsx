@@ -97,6 +97,7 @@ const fetchData = async () => {
             password: "",
             nome: userToUpdate.nome || "",
             cognome: userToUpdate.cognome || "",
+            role: userToUpdate.ruolo,
         });
         setSelectedUserId(utenteId);
         setOperationType("update"); 
@@ -116,6 +117,7 @@ const fetchData = async () => {
                 username: formData.username,
                 nome: formData.nome,
                 cognome: formData.cognome,
+                role: formData.role,
             }),
         });
 
@@ -141,6 +143,7 @@ const resetForm = () => {
       password: "",
       nome: "",
       cognome: "",
+      role: "",
     });
     setSelectedUserId(null);
     setOperationType("create"); 
@@ -262,6 +265,16 @@ const resetForm = () => {
                 onChange={(e) => setFormData({ ...formData, cognome: e.target.value })}
             />
         </Form.Group>
+        <Form.Group className="mb-3" controlId="formRole">
+    <Form.Label>Role</Form.Label>
+    <Form.Select
+        value={formData.role}
+        onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+    >
+        <option value="USER">USER</option>
+        <option value="ADMIN">ADMIN</option>
+    </Form.Select>
+</Form.Group>
     </Form>
 </Modal.Body>
 <Modal.Footer>
