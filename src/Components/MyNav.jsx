@@ -1,10 +1,16 @@
 import { Container, Nav, Navbar, Image } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MyNav = () => {
   const [userName, setUserName] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
 
+  const navigate = useNavigate();
+
+  const navigater = () => {
+    navigate("/utenti/me");
+  };
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
 
@@ -52,6 +58,9 @@ const MyNav = () => {
             <div>
               <Image
                 src={userAvatar}
+                onClick={() => {
+                  navigater();
+                }}
                 roundedCircle
                 width={40}
                 alt="user-profile"
