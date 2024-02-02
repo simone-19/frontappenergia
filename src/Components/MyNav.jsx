@@ -20,8 +20,10 @@ const MyNav = () => {
 
         if (userResponse.ok) {
           const userData = await userResponse.json();
-          setUserName(userData.name); // Sostituisci con il campo corretto dei dati dell'utente
-          setUserAvatar(userData.avatar); // Sostituisci con il campo corretto dei dati dell'utente
+          const datiUtenti = userData.content;
+          console.log(datiUtenti);
+          setUserName(datiUtenti[1].nome);
+          setUserAvatar(datiUtenti[1].avatar);
         } else {
           throw new Error("Errore nel recupero dei dati dell'utente");
         }
@@ -33,7 +35,7 @@ const MyNav = () => {
     if (token) {
       getUserInfo();
     }
-  }, []); // Dipendenza vuota, quindi la richiesta viene eseguita solo al caricamento del componente
+  }, []);
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -48,7 +50,12 @@ const MyNav = () => {
             <div className="flex-grow-1"></div>
             <Nav.Link href="/me">{userName}</Nav.Link>
             <div>
-              <Image src={userAvatar} roundedCircle alt="user-profile"></Image>
+              <Image
+                src={userAvatar}
+                roundedCircle
+                width={40}
+                alt="user-profile"
+              ></Image>
             </div>
           </Nav>
         </Navbar.Collapse>
