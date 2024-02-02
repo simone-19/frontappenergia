@@ -232,6 +232,10 @@ const Fattura = ({ clientsList }) => {
                       </Card.Body>
                       <ListGroup className="list-group-flush">
                         <ListGroup.Item>
+                          Cliente: {fattura.cliente.nomeContatto}{" "}
+                          {fattura.cliente.cognomeContatto}
+                        </ListGroup.Item>
+                        <ListGroup.Item>
                           Data emissione: {fattura.data}
                         </ListGroup.Item>
                         <ListGroup.Item>
