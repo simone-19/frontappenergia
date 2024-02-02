@@ -6,11 +6,11 @@ import ClientSection from "./CientSection";
 import MyNav from "../MyNav";
 
 const api = "http://localhost:3001/clienti";
-const token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MjhiNzYwMi0xY2NhLTQzNDYtOGUzOS03YmJlYzY5MzhkYmEiLCJpYXQiOjE3MDY4MTE3MTgsImV4cCI6MTcwNzQxNjUxOH0.6UuQXxc48-hatNbHqyi23IIMPAuneYtVS4bYWc6YHLQ";
+const token ="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMzk1ODk0ZC1mMTIwLTRmNjktYTU4NS0x"+
+"OWRhOWJjNjJlN2UiLCJpYXQiOjE3MDY4MjU4MzIsImV4cCI6MTcwNzQzMDYzMn0.zRXOHpDMNUM6yCYxyI473TgvS_k0nhLUCsG9NtkZ71M"
 const Client = () => {
   const [data, setData] = useState([]);
-
+  const[refresh,setRefresh]=useState(false)
   const getClienti = async () => {
     try {
       let response = await fetch(api, {
@@ -18,7 +18,7 @@ const Client = () => {
         headers: {
           "Content-type": "application/json",
           authorization:
-            "bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MjhiNzYwMi0xY2NhLTQzNDYtOGUzOS03YmJlYzY5MzhkYmEiLCJpYXQiOjE3MDY4MTE3MTgsImV4cCI6MTcwNzQxNjUxOH0.6UuQXxc48-hatNbHqyi23IIMPAuneYtVS4bYWc6YHLQ",
+            "bearer "+token,
         },
       });
       if (response.ok) {
@@ -36,7 +36,7 @@ const Client = () => {
 
   useEffect(() => {
     getClienti();
-  }, []);
+  }, [data.length]);
 
   return (
     <>

@@ -1,20 +1,29 @@
 import { useEffect, useState } from "react";
-import { ListGroup, ListGroupItem } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Button, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import MyNav from "../MyNav";
+import ModalModify from "./ModalModify";
 
-const ClientDetails = () => {
+const ClientDetails = (props) => {
+  const navigate = useNavigate();
+
+  const navigater=()=>{
+    navigate("/clienti")
+  }
+  const [showAdd, setShowAdd] = useState(false);
   let { clientiId } = useParams();
   console.log(clientiId);
-  const api = "http://localhost:3001/clienti/" + clientiId;
   const [detail, setDetail] = useState([]);
+  const api = "http://localhost:3001/clienti/" + clientiId;
+  const token =
+    "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMzk1ODk0ZC1mMTIwLTRmNjktYTU4NS0x" +
+    "OWRhOWJjNjJlN2UiLCJpYXQiOjE3MDY4MjU4MzIsImV4cCI6MTcwNzQzMDYzMn0.zRXOHpDMNUM6yCYxyI473TgvS_k0nhLUCsG9NtkZ71M";
   const getClientiDetail = () => {
     fetch(api, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        authorization:
-          "bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MjhiNzYwMi0xY2NhLTQzNDYtOGUzOS03YmJlYzY5MzhkYmEiLCJpYXQiOjE3MDY4MTE3MTgsImV4cCI6MTcwNzQxNjUxOH0.6UuQXxc48-hatNbHqyi23IIMPAuneYtVS4bYWc6YHLQ",
+        authorization: "bearer " + token,
       },
     })
       .then((data) => {
@@ -32,6 +41,29 @@ const ClientDetails = () => {
         console.log("error" + error);
       });
   };
+
+  const deleteData = () => {
+    fetch(api, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        authorization: "bearer " + token,
+      },
+    })
+      .then((data) => {
+        if (data.ok) {
+          console.log("CANCELLATO");
+          alert("OGGETTO ELIMINATO");
+          //   props.setShow(false)
+        } else {
+          throw new Error("Errore nel caricamento dei dati");
+        }
+      })
+      .catch((error) => {
+        console.log("error" + error);
+      });
+  };
+
   useEffect(() => {
     getClientiDetail();
   }, []);
@@ -73,10 +105,28 @@ const ClientDetails = () => {
         <ListGroupItem>
           <p>{detail.telefono}</p>
         </ListGroupItem>
-        <ListGroupItem>
-          <p>{detail.telefonoContatto}</p>
-        </ListGroupItem>
       </ListGroup>
+      <div>
+        <Button variant="warning" onClick={() => setShowAdd(true)}>
+          modifica
+        </Button>{" "}
+        <Button
+          variant="danger"
+          onClick={() => {
+            deleteData();
+           navigater()
+            
+          }}
+        >
+          elimina
+        </Button>{" "}
+      </div>
+      <ModalModify
+        setShow={setShowAdd}
+        show={showAdd}
+        id={detail.id}
+        image={detail.logoAziendale}
+      />
     </>
   );
 };

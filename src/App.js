@@ -8,6 +8,7 @@ import Client from "./Components/PageClienti/Client";
 import ClientDetails from "./Components/PageClienti/ClientDetails";
 import GestioneUtenti from "./Components/GestioneUtenti/GestioneUtente";
 import MyNav from "./Components/MyNav";
+import { useState } from "react";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
           <Route path="/clienti" element={<Client></Client>}></Route>
           <Route
             path="/clienti/details/:clientiId"
-            element={<ClientDetails></ClientDetails>}
+            element={<ClientDetails ></ClientDetails>}
           ></Route>
         </Routes>
         <MyFooter></MyFooter>
