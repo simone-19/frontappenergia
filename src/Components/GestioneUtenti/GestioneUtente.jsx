@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Col, Form, Modal, Row } from "react-bootstrap";
-
+import MyNav from "../MyNav";
 
 const GestioneUtenti = () => {
-    const [data, setData] = useState([]);
-    const bearerToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2E1ZGUyNC0yNzJiLTRjMjEtYjM0MS1hMTAyZGI1YWQ2OGUiLCJpYXQiOjE3MDY3OTg5MDYsImV4cCI6MTcwNzQwMzcwNn0.U6WvheifWUF1LYero4vt0wIvS-oJ7yHwBhusglhphSQ";
-    const [operationType, setOperationType] = useState("create");
-    const [showModal, setShowModal] = useState(false);
-    const [formData, setFormData] = useState({
-      username: "",
-      email: "",
-      password: "",
-      nome: "",
-      cognome: "",
-    });
-const [selectedUserId, setSelectedUserId] = useState(null);
+  const [data, setData] = useState([]);
+  const bearerToken =
+    "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MjhiNzYwMi0xY2NhLTQzNDYtOGUzOS03YmJlYzY5MzhkYmEiLCJpYXQiOjE3MDY4MTE3MTgsImV4cCI6MTcwNzQxNjUxOH0.6UuQXxc48-hatNbHqyi23IIMPAuneYtVS4bYWc6YHLQ";
+  const [operationType, setOperationType] = useState("create");
+  const [showModal, setShowModal] = useState(false);
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    nome: "",
+    cognome: "",
+  });
+  const [selectedUserId, setSelectedUserId] = useState(null);
 
-const fetchData = async () => {
+  const fetchData = async () => {
     try {
       const response = await fetch("http://localhost:3001/utenti", {
         headers: {
@@ -33,7 +34,7 @@ const fetchData = async () => {
   useEffect(() => {
     fetchData();
   }, []);
-    
+
   const handleDeleteUser = async (utenteId) => {
     try {
       const response = await fetch(`http://localhost:3001/utenti/${utenteId}`, {
@@ -45,7 +46,7 @@ const fetchData = async () => {
 
       if (response.ok) {
         console.log(`User with ID ${utenteId} deleted`);
-        fetchData(); // 
+        fetchData(); //
       } else {
         console.error("Failed to delete user");
       }
@@ -54,38 +55,33 @@ const fetchData = async () => {
     }
   };
 
-
-
   const handleCreateUser = async () => {
     try {
-      const response = await fetch('http://localhost:3001/auth/register', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3001/auth/register", {
+        method: "POST",
         headers: {
           Authorization: `Bearer ${bearerToken}`,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        console.log('User created successfully');
+        console.log("User created successfully");
         fetchData();
         setShowModal(false);
       } else {
-        const errorData = await response.json(); 
-        console.error('Failed to create user:', errorData);
-      
-        alert('Failed to create user. Please check the input and try again.');
+        const errorData = await response.json();
+        console.error("Failed to create user:", errorData);
+
+        alert("Failed to create user. Please check the input and try again.");
       }
     } catch (error) {
-      console.error('Error creating user:', error);
-     
-      alert('An unexpected error occurred. Please try again later.');
+      console.error("Error creating user:", error);
+
+      alert("An unexpected error occurred. Please try again later.");
     }
   };
-
-
-
 
   const handleUpdateUser = (utenteId) => {
     const userToUpdate = data.find((user) => user.uuid === utenteId);
@@ -103,7 +99,7 @@ const fetchData = async () => {
         setOperationType("update"); 
         setShowModal(true);
     }
-};
+  };
 
   const handleUpdateUserSubmit = async () => {
     try {
@@ -130,13 +126,24 @@ const fetchData = async () => {
             console.error('Failed to update user:', errorData);
             alert('Failed to update user. Please check the input and try again.');
         }
-    } catch (error) {
-        console.error('Error updating user:', error);
-        alert('An unexpected error occurred. Please try again later.');
-    }
-};
+      
 
-const resetForm = () => {
+      if (response.ok) {
+        console.log(`User with ID ${selectedUserId} updated`);
+        fetchData();
+        setShowModal(false);
+      } else {
+        const errorData = await response.json();
+        console.error("Failed to update user:", errorData);
+        alert("Failed to update user. Please check the input and try again.");
+      }
+    } catch (error) {
+      console.error("Error updating user:", error);
+      alert("An unexpected error occurred. Please try again later.");
+    }
+  };
+
+  const resetForm = () => {
     setFormData({
       username: "",
       email: "",
@@ -148,9 +155,6 @@ const resetForm = () => {
     setSelectedUserId(null);
     setOperationType("create"); 
   };
-
-
-
 
   return (
     <div>
@@ -230,19 +234,23 @@ const resetForm = () => {
                 <Form.Group className="mb-3" controlId="formEmail">
                     <Form.Label>Email</Form.Label>
                     <Form.Control
-                        type="email"
-                        placeholder="Enter email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      type="email"
+                      placeholder="Enter email"
+                      value={formData.email}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
                     />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formPassword">
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="formPassword">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
-                        type="password"
-                        placeholder="Enter password"
-                        value={formData.password}
-                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                      type="password"
+                      placeholder="Enter password"
+                      value={formData.password}
+                      onChange={(e) =>
+                        setFormData({ ...formData, password: e.target.value })
+                      }
                     />
                 </Form.Group>
             </>

@@ -1,11 +1,13 @@
 import { Row, Col, Button } from "react-bootstrap";
 
-const MyButton = () => {
+const MyButton = ({ onClick }) => {
   return (
     <>
       <Row>
         <Col>
-          <Button className="mt-5">Login</Button>
+          <Button className="mt-5" onClick={onClick}>
+            Login
+          </Button>
         </Col>
       </Row>
     </>
