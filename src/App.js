@@ -9,6 +9,7 @@ import ClientDetails from "./Components/PageClienti/ClientDetails";
 import GestioneUtenti from "./Components/GestioneUtenti/GestioneUtente";
 import DettaglioFattura from "./Components/PageFatture/DettaglioFattura";
 import GestioneFattura from "./Components/PageFatture/GestioneFattura";
+import PaginaPersonale from "./Components/GestioneUtenti/PaginaPersonale";
 
 function App() {
   return (
@@ -23,7 +24,15 @@ function App() {
               path="/clienti/details/:clientiId"
               element={<ClientDetails />}
             ></Route>
-            <Route path="/dettaglio_fattura/:id" element={<DettaglioFattura />} />
+
+            <Route
+              path="/dettaglio_fattura/:id"
+              element={<DettaglioFattura />}
+            />
+            <Route
+              path="/utenti/me"
+              element={<PaginaPersonale></PaginaPersonale>}
+            />
             <Route path="/fatture" element={<GestioneFattura />}></Route>
           </Routes>
           <MyFooter />

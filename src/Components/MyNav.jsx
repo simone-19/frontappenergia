@@ -1,10 +1,16 @@
 import { Container, Nav, Navbar, Image } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MyNav = () => {
   const [userName, setUserName] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
 
+  const navigate = useNavigate();
+
+  const navigater = () => {
+    navigate("/utenti/me");
+  };
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
 
@@ -48,7 +54,14 @@ const MyNav = () => {
             <div className="flex-grow-1"></div>
             <Nav.Link href="/me">{userName}</Nav.Link>
             <div>
-              <Image src={userAvatar} roundedCircle alt="user-profile"></Image>
+              <Image
+                src={userAvatar}
+                onClick={() => {
+                  navigater();
+                }}
+                roundedCircle
+                alt="user-profile"
+              ></Image>
             </div>
           </Nav>
         </Navbar.Collapse>
