@@ -7,17 +7,15 @@ import ModalModify from "./ModalModify";
 const ClientDetails = (props) => {
   const navigate = useNavigate();
 
-  const navigater=()=>{
-    navigate("/clienti")
-  }
+  const navigater = () => {
+    navigate("/clienti");
+  };
   const [showAdd, setShowAdd] = useState(false);
   let { clientiId } = useParams();
   console.log(clientiId);
   const [detail, setDetail] = useState([]);
   const api = "http://localhost:3001/clienti/" + clientiId;
-  const token =
-    "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMzk1ODk0ZC1mMTIwLTRmNjktYTU4NS0x" +
-    "OWRhOWJjNjJlN2UiLCJpYXQiOjE3MDY4MjU4MzIsImV4cCI6MTcwNzQzMDYzMn0.zRXOHpDMNUM6yCYxyI473TgvS_k0nhLUCsG9NtkZ71M";
+  const token = localStorage.getItem("jwtToken");
   const getClientiDetail = () => {
     fetch(api, {
       method: "GET",
@@ -114,8 +112,7 @@ const ClientDetails = (props) => {
           variant="danger"
           onClick={() => {
             deleteData();
-           navigater()
-            
+            navigater();
           }}
         >
           elimina
