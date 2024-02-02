@@ -29,10 +29,7 @@ function App() {
               path="/dettaglio_fattura/:id"
               element={<DettaglioFattura />}
             />
-            <Route
-              path="/utenti/me"
-              element={<PaginaPersonale></PaginaPersonale>}
-            />
+            <Route path="/me" element={<PaginaPersonale></PaginaPersonale>} />
             <Route path="/fatture" element={<GestioneFattura />}></Route>
           </Routes>
           <MyFooter />

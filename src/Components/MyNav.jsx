@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const MyNav = () => {
   const [userName, setUserName] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
+  const [ruolo, setRuolo] = useState("");
 
   const navigate = useNavigate();
 
@@ -16,7 +17,7 @@ const MyNav = () => {
 
     const getUserInfo = async () => {
       try {
-        const userResponse = await fetch("http://localhost:3001/utenti", {
+        const userResponse = await fetch("http://localhost:3001/utenti/me", {
           method: "GET",
           headers: {
             "Content-type": "application/json",
@@ -26,10 +27,11 @@ const MyNav = () => {
 
         if (userResponse.ok) {
           const userData = await userResponse.json();
-          const datiUtenti = userData.content;
-          console.log(datiUtenti);
-          setUserName(datiUtenti[1].nome);
-          setUserAvatar(datiUtenti[1].avatar);
+          console.log("OOOOOOOO" + userData);
+          //setData(userData);
+          setRuolo(userData.ruolo);
+          setUserName(userData.nome);
+          setUserAvatar(userData.avatar);
         } else {
           throw new Error("Errore nel recupero dei dati dell'utente");
         }
@@ -52,7 +54,9 @@ const MyNav = () => {
           <Nav>
             <Nav.Link href="/clienti">Clienti</Nav.Link>
             <Nav.Link href="/fatture">Fatture</Nav.Link>
-            <Nav.Link href="/gestione">Gestione Utenti</Nav.Link>
+            {ruolo === "ADMIN" && (
+              <Nav.Link href="/gestione">Gestione Utenti</Nav.Link>
+            )}
             <div className="flex-grow-1"></div>
             <Nav.Link href="/me">{userName}</Nav.Link>
             <div>

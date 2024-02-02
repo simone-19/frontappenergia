@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ModalModify from "./ModalModify";
+import MyNav from "../MyNav";
 
 const ClientSection = (props) => {
   const [showAdd, setShowAdd] = useState(false);

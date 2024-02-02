@@ -3,6 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
+import MyNav from "../MyNav";
 
 const PaginaPersonale = () => {
   const api = "http://localhost:3001/utenti/me";
@@ -37,9 +38,9 @@ const PaginaPersonale = () => {
 
   return (
     <>
+      <MyNav></MyNav>
       <Container>
         <Row>
-          <h2>buongiorissimo</h2>
           <Col className="mb-2 p-2" key={detail.uuid} xs={12} sm={6} lg={6}>
             <Card>
               <Row className="g-2">
